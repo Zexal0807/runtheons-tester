@@ -1,7 +1,3 @@
-const supertest = requiree("supertest");
+const supertest = require("supertest");
 
-module.exports = (app) => {
-	const request = supertest(app);
-
-	return request;
-}
+module.exports = (app) => { return supertest(app); }
