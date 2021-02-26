@@ -1,33 +1,24 @@
 module.exports = class Test {
-	name;
-	url;
-	method;
-	headers;
-	body;
-	aspectedResponse;
 
-	costruction(obj) {
+	constructor(obj) {
 		this.name = obj.name || "";
 		this.url = obj.url || "/";
 		this.method = obj.method || "GET";
-		this.headers = obj.headers || [];
-		if (this.headers['Content-Type'] == undefined) {
-			this.headers['Content-Type'] = "application/json";
+		this.header = obj.header || [];
+		if (this.header['Content-Type'] == undefined && this.method != "GET") {
+			this.header['Content-Type'] = "application/json";
 		}
 		this.body = obj.body || {}
 		this.aspectedResponse = obj.response || { status: true };
 	}
 
-	test(request) {
-		var it = require('mocha').it
-		it(this.name, async done => {
-			var method = this.method;
-			const response = await request[method](this.url)
-				.set(this.headers)
-				.send(this.body);
+	async test(request) {
+		var method = this.method.toLowerCase();
+		const response = await request[method](this.url)
+			.set(this.header)
+			.send(this.body);
 
-			expect(response.body.status).toEqual(this.aspectedResponse.status);
-			done();
-		});
+		const expect = require('expect');
+		expect(response.body.status).toEqual(this.aspectedResponse.status)
 	}
 }
