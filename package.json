@@ -1,22 +1,22 @@
 {
-  "name": "@runtheons/tester",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Zexal0807/runtheons-tester.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Zexal0807/runtheons-tester/issues"
-  },
-  "homepage": "https://github.com/Zexal0807/runtheons-tester#readme",
-  "dependencies": {
-    "supertest": "^6.1.3"
-  }
+	"name": "@runtheons/tester",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Zexal0807/runtheons-tester.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Zexal0807/runtheons-tester/issues"
+	},
+	"homepage": "https://github.com/Zexal0807/runtheons-tester#readme",
+	"devDependencies": {
+		"supertest": "^6.1.3"
+	}
 }
