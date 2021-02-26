@@ -1,4 +1,4 @@
-module.export = class Test{
+module.exports = class Test{
 	name;
 	url;
 	method;
