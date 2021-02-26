@@ -19,6 +19,7 @@ module.exports = class Test {
 	}
 
 	test(request) {
+		var it = require('mocha').it
 		it(this.name, async done => {
 			var method = this.method;
 			const response = await request[method](this.url)
