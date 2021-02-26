@@ -7,7 +7,7 @@ module.exports = class Test {
 	aspectedResponse;
 
 	costruction(obj) {
-		this.name = name || "";
+		this.name = obj.name || "";
 		this.url = obj.url || "/";
 		this.method = obj.method || "GET";
 		this.headers = obj.headers || [];

@@ -3,9 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
+	"scripts": {},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Zexal0807/runtheons-tester.git"
@@ -16,6 +14,12 @@
 		"url": "https://github.com/Zexal0807/runtheons-tester/issues"
 	},
 	"homepage": "https://github.com/Zexal0807/runtheons-tester#readme",
+	"jest": {
+		"testEnvironment": "node",
+		"coveragePathIgnorePatterns": [
+			"/node_modules/"
+		]
+	},
 	"devDependencies": {
 		"supertest": "^6.1.3"
 	}
