@@ -17,8 +17,7 @@ module.exports = class Test {
 		const response = await request[method](this.url)
 			.set(this.header)
 			.send(this.body);
-
 		const expect = require('expect');
-		expect(response.body.status).toEqual(this.aspectedResponse.status)
+		await expect(response.body.status).toEqual(this.aspectedResponse.status)
 	}
 }
