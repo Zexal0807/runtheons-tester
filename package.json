@@ -16,7 +16,7 @@
     "url": "https://github.com/Zexal0807/runtheons-tester/issues"
   },
   "homepage": "https://github.com/Zexal0807/runtheons-tester#readme",
-  "devDependencies": {
+  "dependencies": {
     "supertest": "^6.1.3"
   }
 }
