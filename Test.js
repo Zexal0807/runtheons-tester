@@ -38,6 +38,7 @@ module.exports = class Test {
 			await expect(response.body.status).toEqual(this.aspectedResponse.status);
 		} catch (e) {
 			objTest.status = false;
+			objTest.error = e;
 		}
 		objTest.duration = (this.getNanoSecTime() - objTest.duration) / 1000000;
 		return objTest;
