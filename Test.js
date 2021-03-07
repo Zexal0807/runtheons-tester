@@ -17,6 +17,7 @@ module.exports = class Test {
 
 	async test(request) {
 		var objTest = {
+			name: this.name,
 			duration: this.getNanoSecTime(),
 			method: this.method,
 			url: this.url,
