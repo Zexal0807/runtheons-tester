@@ -1,5 +1,11 @@
 const expect = require('expect');
 
+class FileTest {
+	constructor(filename) {
+		this.filename;
+	}
+}
+
 module.exports = class Test {
 
 	constructor(obj) {
@@ -14,6 +20,8 @@ module.exports = class Test {
 		this.body = obj.body || {}
 		this.aspectedResponse = obj.response || { status: true };
 	}
+
+	File = (filename) => new FileTest(filename);
 
 	async test(request) {
 		var objTest = {
