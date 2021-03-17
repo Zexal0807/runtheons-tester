@@ -1,13 +1,5 @@
 const expect = require('expect');
-
-class FileTest {
-	constructor(filename) {
-		this.filename;
-	}
-	getPath() {
-		return this.filename;
-	}
-}
+const FileTest = require("./FileTest");
 
 module.exports = class Test {
 
@@ -24,10 +16,8 @@ module.exports = class Test {
 		this.aspectedResponse = obj.response || { status: true };
 	}
 
-	File = (filename) => new FileTest(filename);
-
 	async test(request) {
-		var requestInstace = request[objTest.method](this.url)
+		var requestInstace = request[this.method](this.url)
 			.set(this.header);
 
 		var form = {};
