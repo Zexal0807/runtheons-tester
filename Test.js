@@ -1,5 +1,6 @@
-const expect = require('expect');
+const request = require("request-promise");
 const FileTest = require("./FileTest");
+const fs = require("fs");
 
 module.exports = class Test {
 
@@ -16,21 +17,34 @@ module.exports = class Test {
 		this.aspectedResponse = obj.response || { status: true };
 	}
 
-	async test(request) {
-		var requestInstace = request[this.method](this.url)
-			.set(this.header);
-
-		var form = {};
-
+	createForm() {
+		var form = {}
 		Object.keys(this.body).forEach(k => {
 			var v = this.body[k];
-
 			if (v instanceof FileTest) {
-				requestInstace.attach(k, v.getPath());
+				form[k] = fs.createReadStream(v.getPath());
 			} else {
 				form[k] = v;
 			}
-		});
+		})
+		return form;
+	}
+
+	async test(requested) {
+		var options = {
+			method: this.method,
+			uri: "http://localhost:3001" + this.url,
+			headers: this.header,
+			resolveWithFullResponse: true
+		};
+
+		var haveFile = Object.values(this.body).find(el => el instanceof FileTest) != undefined;
+		if (haveFile) {
+			options.formData = this.createForm();
+		} else {
+			options.body = this.body;
+			options.json = true;
+		}
 
 		var objTest = {
 			name: this.name,
@@ -42,21 +56,28 @@ module.exports = class Test {
 			status: true
 		};
 
-		const response = await requestInstace.send(form);
-		objTest.duration = (this.getNanoSecTime() - objTest.duration) / 1000000;
-		objTest.response = {
-			body: response.body,
-			header: response.header
-		}
-
-		try {
-			await expect(response.body.status).toEqual(this.aspectedResponse.status);
-		} catch (e) {
-			objTest.status = false;
-			objTest.error = e;
-		}
-
-		return objTest;
+		return new Promise((resolve, reject) => {
+			request(options)
+				.then(response => {
+					objTest.duration = (this.getNanoSecTime() - objTest.duration) / 1000000;
+					objTest.response = {
+						body: response.body,
+						header: response.header
+					}
+					if (response.body.status == aspectedResponse.status) {
+						objTest.status = true;
+					} else {
+						console.log(response);
+						objTest.status = false;
+					}
+					return resolve(objTest)
+				})
+				.catch(err => {
+					objTest.duration = (this.getNanoSecTime() - objTest.duration) / 1000000;
+					//console.log(err);
+					return resolve(objTest)
+				});
+		});
 	}
 
 	getNanoSecTime() {

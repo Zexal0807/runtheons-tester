@@ -1,8 +1,9 @@
-module.exports = (filename) => new class FileTest {
+module.exports = class FileTest {
 	constructor(filename) {
-		this.filename;
+		this.filename = filename;
 	}
+
 	getPath() {
 		return this.filename;
 	}
-}(filename);
+}
