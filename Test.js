@@ -4,6 +4,9 @@ class FileTest {
 	constructor(filename) {
 		this.filename;
 	}
+	getPath() {
+		return this.filename;
+	}
 }
 
 module.exports = class Test {
@@ -27,7 +30,18 @@ module.exports = class Test {
 		var requestInstace = request[objTest.method](this.url)
 			.set(this.header);
 
-		var form = this.body;
+		var form = {};
+
+		Object.keys(this.body).forEach(k => {
+			var v = this.body[k];
+
+			if (v instanceof FileTest) {
+				requestInstace.attach(k, v.getPath());
+			} else {
+				form[k] = v;
+			}
+		});
+
 		var objTest = {
 			name: this.name,
 			duration: this.getNanoSecTime(),
