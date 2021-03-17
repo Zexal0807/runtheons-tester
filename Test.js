@@ -24,6 +24,10 @@ module.exports = class Test {
 	File = (filename) => new FileTest(filename);
 
 	async test(request) {
+		var requestInstace = request[objTest.method](this.url)
+			.set(this.header);
+
+		var form = this.body;
 		var objTest = {
 			name: this.name,
 			duration: this.getNanoSecTime(),
@@ -34,10 +38,8 @@ module.exports = class Test {
 			status: true
 		};
 
-		const response = await request[objTest.method](this.url)
-			.set(this.header)
-			.send(this.body);
-
+		const response = await requestInstace.send(form);
+		objTest.duration = (this.getNanoSecTime() - objTest.duration) / 1000000;
 		objTest.response = {
 			body: response.body,
 			header: response.header
@@ -49,7 +51,7 @@ module.exports = class Test {
 			objTest.status = false;
 			objTest.error = e;
 		}
-		objTest.duration = (this.getNanoSecTime() - objTest.duration) / 1000000;
+
 		return objTest;
 	}
 
