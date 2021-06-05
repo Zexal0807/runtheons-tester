@@ -35,7 +35,8 @@ module.exports = class Test {
 			method: this.method,
 			uri: "http://localhost:3001" + this.url,
 			headers: this.header,
-			resolveWithFullResponse: true
+			resolveWithFullResponse: true,
+			json: true
 		};
 
 		var haveFile = Object.values(this.body).find(el => el instanceof FileTest) != undefined;
@@ -43,7 +44,6 @@ module.exports = class Test {
 			options.formData = this.createForm();
 		} else {
 			options.body = this.body;
-			options.json = true;
 		}
 
 		var objTest = {
@@ -64,7 +64,7 @@ module.exports = class Test {
 						body: response.body,
 						header: response.header
 					}
-					if (response.body.status == aspectedResponse.status) {
+					if (response.body.status == this.aspectedResponse.status) {
 						objTest.status = true;
 					} else {
 						console.log(response);
