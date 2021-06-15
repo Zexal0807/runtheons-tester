@@ -17,6 +17,10 @@ module.exports = class Test {
 		this.aspectedResponse = obj.response || { status: true };
 	}
 
+	check(response) {
+		response.body.status == this.aspectedResponse.status
+	}
+
 	createForm() {
 		var form = {}
 		Object.keys(this.body).forEach(k => {
@@ -30,7 +34,7 @@ module.exports = class Test {
 		return form;
 	}
 
-	async test(requested) {
+	async test() {
 		var options = {
 			method: this.method,
 			uri: "http://localhost:3001" + this.url,
@@ -64,7 +68,7 @@ module.exports = class Test {
 						body: response.body,
 						header: response.header
 					}
-					if (response.body.status == this.aspectedResponse.status) {
+					if (this.check(response)) {
 						objTest.status = true;
 					} else {
 						console.log(response);
