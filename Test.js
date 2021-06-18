@@ -14,11 +14,12 @@ module.exports = class Test {
 			this.header['Content-Type'] = "application/json";
 		}
 		this.body = obj.body || {}
+		this.check = obj.check || this.check
 		this.aspectedResponse = obj.response || { status: true };
 	}
 
 	check(response) {
-		response.body.status == this.aspectedResponse.status
+		return response.body.status == this.aspectedResponse.status
 	}
 
 	createForm() {
@@ -71,14 +72,14 @@ module.exports = class Test {
 					if (this.check(response)) {
 						objTest.status = true;
 					} else {
-						console.log(response);
+						//console.log(response);
 						objTest.status = false;
 					}
 					return resolve(objTest)
 				})
 				.catch(err => {
 					objTest.duration = (this.getNanoSecTime() - objTest.duration) / 1000000;
-					//console.log(err);
+					console.log(err);
 					return resolve(objTest)
 				});
 		});
