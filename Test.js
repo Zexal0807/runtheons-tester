@@ -15,11 +15,10 @@ module.exports = class Test {
 		}
 		this.body = obj.body || {}
 		this.check = obj.check || this.check
-		this.aspectedResponse = obj.response || { status: true };
 	}
 
 	check(response) {
-		return response.body.status == this.aspectedResponse.status
+		return response.body.status == true
 	}
 
 	createForm() {
